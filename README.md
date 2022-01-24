@@ -13,13 +13,13 @@ As mentioned, Deadware is disguised as a selfbot called `DeadCord` which is a fu
 * test_con - tests connection
 * create_file <filename> - creates a file
 * start_process <process> - starts process
-computer_shutdown - shuts down computer
-deadware_bomb - messes with computer
-get_token - gets selfbot token
-start_typing <message> - opens notepad and types message
-get_ip - gets machine IP
-end_task <task> - ends a task
-get_tasks - gets current processes running
+* computer_shutdown - shuts down computer
+* deadware_bomb - messes with computer
+* get_token - gets selfbot token
+* start_typing <message> - opens notepad and types message
+* get_ip - gets machine IP
+* end_task <task> - ends a task
+* get_tasks - gets current processes running
 
 
 
