@@ -4,7 +4,7 @@ Deadware is a RAT disguised as a Selfbot. It uses a Discord server and bot as a 
 ## How to setup
 1. Create a Discord Bot in the [Discord developer portal](https://discord.com/developers/applications)
 2. In `deadcord.py` replace line `917` with your Discord Bot Token
-3. Compile `deadcord.py` with pyinstaller. I would suggest using the following command in step 3 
+3. Compile `deadcord.py` with pyinstaller. I would suggest using the following command in step 4 
 4. `pyinstaller deadcord.py --onefile --uac-admin`
 
 ## Deadware commands
