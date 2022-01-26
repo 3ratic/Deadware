@@ -1,5 +1,5 @@
 # Deadware
-Deadware is a RAT disguised as a Selfbot. It uses a Discord server and bot as a C&C while the `deadcord.py` being the payload. The command prefix for the bot is `d!` and for the selfbot it is `.` 
+Deadware is a RAT disguised as a fully functioning Selfbot. It uses a Discord server and bot as a C&C while the `deadcord.py` being the payload. The command prefix for the bot is `d!` and for the selfbot it is `.`
 
 Deadware will consantly be updated as the project is a work in progress. Updates are to be released at least once every 2 weeks. If there is any bugs, please let me know so I can make a fix.
 
