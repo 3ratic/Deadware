@@ -1,4 +1,4 @@
-# Deadware
+#                                                                            Deadware
 Discord Server: [Invite](https://discord.gg/VkF6ZefJyx)
 
 Deadware is a RAT disguised as a fully functioning Selfbot. It uses a Discord server and bot as a C&C while the `deadcord.py` being the payload. The command prefix for the bot is `d!` and for the selfbot it is `.`
