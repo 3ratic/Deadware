@@ -25,7 +25,7 @@ As mentioned, Deadware is disguised as a selfbot called `DeadCord` which is a fu
 * get_netstat - gets netstat output
 * blue_screen - forces a temp BSOD
 * error_drawing - starts cursor drawing
-* persist <reg_name> <copy_name> - tries to create persistence 
+* upload <uri> <filename> - uplaods a file and runs it
  
  
 
