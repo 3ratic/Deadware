@@ -9,7 +9,9 @@ Deadware will consantly be updated as the project is a work in progress. Updates
 3. Compile `deadcord.py` with pyinstaller. I would suggest using the following command in step 4 or you can run the `Builder.py` for speed
 4. `pyinstaller deadcord.py --onefile --uac-admin`
 
-## Deadware commands
+## Deadware Info
+`Packer.py` will inject the Deadware code into another python file.
+
 As mentioned, Deadware is disguised as a selfbot called `DeadCord` which is a fully functioning selfbot with over 75 commands. However, the real commands are in the Deadware bot. The following list is the up to date commands:
 
 * test_con - tests connection
@@ -26,6 +28,8 @@ As mentioned, Deadware is disguised as a selfbot called `DeadCord` which is a fu
 * blue_screen - forces a temp BSOD
 * error_drawing - starts cursor drawing
 * upload <uri> <filename> - uplaods a file and runs it
+ 
+
  
  
 
