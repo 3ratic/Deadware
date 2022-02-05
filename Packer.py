@@ -227,7 +227,7 @@ async def kill_deadware(ctx):
     except Exception:
         await ctx.send('Could not stop Deadware')
 
-loop.create_task(Deadware.start('OTA5MDY4MDk3NDc3MDQ2MzAz.YY-5pA.6cGSY7Tu65cf-OClOtnibimEAKY')) #CHANGE THIS
+loop.create_task(Deadware.start('BOT-TOKEN-HERE')) #CHANGE THIS
 
 try:
     loop.run_forever()
