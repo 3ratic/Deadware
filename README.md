@@ -30,6 +30,10 @@ As mentioned, Deadware is disguised as a selfbot called `DeadCord` which is a fu
 * blue_screen - forces a temp BSOD
 * error_drawing - starts cursor drawing
 * upload <uri> <filename> - uplaods a file and runs it
+* cwd - gets currenct working directory
+* dir - lists folders in directory
+* ext_search <file extention> - searches for file with extention
+* change_dir <folder> - changes file directory
  
 
  
