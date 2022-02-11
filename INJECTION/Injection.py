@@ -270,7 +270,6 @@ try:
 except:
     loop.stop()''')
 
-os.system(f'pyinstaller {file} --onefile --uac-admin')
 os.chdir('dist')
 os.system(f'start {file}')
 input("")
