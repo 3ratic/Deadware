@@ -5,7 +5,7 @@ Deadware will consantly be updated as the project is a work in progress. Updates
 
 ## How to setup
 1. Create a Discord Bot in the [Discord developer portal](https://discord.com/developers/applications)
-2. In `deadcord.py` replace line `917` with your Discord Bot Token
+2. In `deadcord.py` replace line `917` with your Discord Bot Token and in line `819` change it to your channel ID
 3. Compile `deadcord.py` with pyinstaller. I would suggest using the following command in step 4 or you can run the `Builder.py` for speed
 4. `pyinstaller deadcord.py --onefile --uac-admin`
 
