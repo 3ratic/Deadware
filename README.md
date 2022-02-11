@@ -11,7 +11,7 @@ Deadware will consantly be updated as the project is a work in progress. Updates
 
 ## Deadware Info
 `Packer.py` will inject the Deadware code into another python file.
-`Injection.py` will create a new file in the Program Data directory and then run `Deadware`
+`Injection.py` will create a new file in the Program Data directory and then run `Deadware.` Note that this payload will need to have python installed on the system.
 
 As mentioned, Deadware is disguised as a selfbot called `DeadCord` which is a fully functioning selfbot with over 75 commands. However, the real commands are in the Deadware bot. The following list is the up to date commands:
 
