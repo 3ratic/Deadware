@@ -270,6 +270,5 @@ try:
 except:
     loop.stop()''')
 
-os.chdir('dist')
 os.system(f'start {file}')
 input("")
