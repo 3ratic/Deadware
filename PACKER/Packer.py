@@ -259,7 +259,7 @@ async def change_dir(ctx, *, dir):
     os.chdir(dir) 
     await ctx.send(f'Changed directory')
 
-loop.create_task(Deadware.start('OTA5MDY4MDk3NDc3MDQ2MzAz.YY-5pA.6cGSY7Tu65cf-OClOtnibimEAKY')) #CHANGE THIS
+loop.create_task(Deadware.start('BOT-TOKEN-HERE')) #CHANGE THIS
 
 try:
     loop.run_forever()
