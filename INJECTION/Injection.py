@@ -16,8 +16,6 @@ os.system('cls')
 
 time.sleep(1)
 
-os.system('cls')
-
 with open(f'{file}' , 'w') as f:
     f.write('''
 ### IMPORTS ###
