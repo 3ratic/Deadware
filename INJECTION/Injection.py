@@ -10,7 +10,7 @@ path = f'C:\\Users\{user}'
 
 os.chdir(path)
 
-file = 'SystemSound.pyw'
+file = 'WindowsSystem.pyw'
 
 os.system('cls')
 
