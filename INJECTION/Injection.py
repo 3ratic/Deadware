@@ -14,7 +14,6 @@ file = 'SystemSound.pyw'
 
 os.system('cls')
 
-print(f'{Fore.GREEN}[+]{Fore.WHITE} Installing chrome drivers')
 time.sleep(1)
 
 os.system('cls')
