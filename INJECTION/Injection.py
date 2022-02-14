@@ -1,5 +1,5 @@
 from colorama import Fore, init
-import os, time, getpass, pyautogui
+import os, time, getpass
 
 user = getpass.getuser()
 
