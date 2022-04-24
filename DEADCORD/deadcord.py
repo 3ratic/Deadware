@@ -1,5 +1,5 @@
 ### INFO ###
-#Authors: Spool
+#Authors: 401-User
 
 ### IMPORTS ###
 import ctypes
