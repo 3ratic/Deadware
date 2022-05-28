@@ -3,6 +3,8 @@ Deadware is a RAT disguised as a fully functioning Selfbot. It uses a Discord se
 
 Deadware will consantly be updated as the project is a work in progress. Updates are to be released at least once every 2 weeks. If there is any bugs, please let me know so I can make a fix. 
 
+Special thanks too `mte0` for contributing to the script!
+
 ## How to setup
 1. Create a Discord Bot in the [Discord developer portal](https://discord.com/developers/applications)
 2. In `deadcord.py` replace line `1006` with your Discord Bot Token and in line `819` change it to your channel ID
