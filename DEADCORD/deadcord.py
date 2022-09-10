@@ -15,7 +15,7 @@ global chanid #ignore this
 global bottoken #ignore this
 
 chanid = 267624335836053506 # change to your channel ID
-bottoken = "OTc1WkMzc0KsMJDskAAzMDky.Gj1MzW.b9KQ_x0PAg8OVebhQELJrMWKSmdJaLskDwMs" # change to your bot token
+bottoken = "OTc1WkMzc0KsMJDskAA" # change to your bot token
 
 init()
 
