@@ -1,0 +1,6 @@
+pathlib==1.0.1
+pyautogui==0.9.53
+win32api
+colorama
+asyncio
+requests
