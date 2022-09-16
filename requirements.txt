@@ -4,3 +4,4 @@ win32api
 colorama
 asyncio
 requests
+discord
