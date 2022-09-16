@@ -34,6 +34,7 @@ As mentioned, Deadware is disguised as a selfbot called `DeadCord` which is a fu
 * upload <uri> <filename> - uplaods a file and runs it
 * cwd - gets currenct working directory
 * dir - lists folders in directory
+* get_screenshot - sends a current screenshott of the current machine
 * ext_search <file extention> - searches for file with extention
 * change_dir <folder> - changes file directory
  
