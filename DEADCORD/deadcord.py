@@ -3,13 +3,13 @@
 
 ### IMPORTS ###
 import asyncio, ctypes, json, os, random, string, time, requests, re
-
+import platform
 from colorama import Fore, init
 from win32api import *
 from win32con import *
 from win32file import *
 from win32gui import *
-import platform
+
 ### CONFIG ###
 global chanid #ignore this
 global bottoken #ignore this
