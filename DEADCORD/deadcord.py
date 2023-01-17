@@ -1,5 +1,4 @@
 ### INFO ###
-#Authors: 401-User
 
 ### IMPORTS ###
 import asyncio, ctypes, json, os, random, string, time, requests, re
