@@ -41,7 +41,7 @@ password = config.get('password')
 prefix = config.get('prefix')
 nitro_sniper = config.get('nitro_sniper')
 
-Deadware = commands.Bot(description='Deadware', command_prefix='d!', bot=True)
+Deadware = commands.Bot(description='Deadware', command_prefix='d!', bot=True,Intents=None)
 
 Deadcord = discord.Client()
 Deadcord = commands.Bot(description='Deadcord Selfbot', command_prefix=prefix, self_bot=True)
